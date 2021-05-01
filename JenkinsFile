@@ -1,0 +1,43 @@
+node
+{
+    def mavenHome = tool name : "maven3.6.3"
+    stage('CheckoutCode')
+    {
+    git credentialsId: '9fe48f3f-08ef-4708-9071-17e863a16e53', url: 'https://github.com/shaktirana96/maven-project.git'
+
+        
+    }
+    stage('Build')
+    {
+        sh "${mavenHome}/bin/mvn clean package"
+    }
+    
+    /*
+    
+    stage('ExecuteSonarqubeReport')
+    {
+        sh "${mavenHome}/bin/mvn sonar:sonar"
+    }
+    stage('UploadArtifacts')
+    {
+        sh "${mavenHome}/bin/mvn deploy"
+    }
+    stage('DeployIntoTomcatServer')
+    {
+        sshagent([''])
+        {
+        // to transfer war file from jenkins target folder to tomcat server webapps dir
+        // sh "scp option No hostkeychecking target/maven-web-application.war --> from dir user@ip:/to dir path"
+          sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.233.197.144:/opt/apache-tomcat-9.037/webapps/"  
+        }
+    }
+    stage('SendEmailNotification')
+    {
+        emailext body: '''Build is over..
+        
+        Regards,
+        Mithun Technologies,
+        9980923226.''', subject: 'Build is over', to: 'devopstrainingblr@gmail.com'
+    }
+    */
+}
