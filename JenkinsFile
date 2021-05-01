@@ -1,6 +1,9 @@
 node
 {
     def mavenHome = tool name : "maven3.6.3"
+    
+    properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '5', numToKeepStr: '5')), [$class: 'JobLocalConfiguration', changeReasonComment: ''], pipelineTriggers([pollSCM('* * * * *')])])
+    
     stage('CheckoutCode')
     {
     git credentialsId: '9fe48f3f-08ef-4708-9071-17e863a16e53', url: 'https://github.com/shaktirana96/maven-project.git'
